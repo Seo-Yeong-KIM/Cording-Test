@@ -2,26 +2,24 @@ class Solution {
     public int solution(int n) {
         
         // 2진수로 변환 후 가장 큰 1만 왼쪽으로 옮기고 나머지 1은 오른쪽에서부터 채우기
-        int before = n%2;
-        int findOne = 0; // 그 외 1의 갯수
-        int index = 0; // 가장 큰 1의 인덱스
+        
+        int target = n;
+        int oneCnt = 0; // 그 외 1의 갯수
+        int maxOneIndex = 0; // 가장 큰 1의 인덱스
         
         do {
-            index++;
-            n /= 2;
-            if(before == 1 && n%2 == 0) {
+            if(target%2 == 1 && (target/2)%2 == 0) {
+                target++;
                 break;
             }
-            if(before == 1) {
-                findOne++;
-            }
-            before = n%2;
-        } while(n > 0);
+            oneCnt += target%2;
+            maxOneIndex++;
+            target /= 2;
+        } while(target > 0);
         
-        n++;
-        n *= ((int)Math.pow(2,index));
-        n += ((int)Math.pow(2,findOne))-1;
+        target *= ((int)Math.pow(2,maxOneIndex));
+        target += ((int)Math.pow(2,oneCnt))-1;
         
-        return n;
+        return target;
     }
 }
